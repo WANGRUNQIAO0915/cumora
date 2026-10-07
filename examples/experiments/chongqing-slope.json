@@ -1,0 +1,291 @@
+{
+  "schemaVersion": 1,
+  "title": "Chongqing slope: Horn vs Zevenbergen–Thorne",
+  "description": "Two real GDAL slope runs on the same preserved 100 m DSM, with recorded comparison metrics and a verified Horn replay. Metadata only; Cumora does not execute raster commands.",
+  "provenance": [
+    "Copernicus DEM GLO-90 AWS 2021 COG release; 3 arc-second native grid, nominal 90 m; DSM",
+    "Chongqing municipality, prior OSM relation 913069 mask; not limited to the traditional central nine districts",
+    "Bilinear resampling to local WGS84 Transverse Mercator, lon0 108 E, scale 1, false easting 500000 m; 100 m grid; stored Int16 whole metres; centre-point boundary clipping.",
+    "Exact replay starts at this preserved 100 m input; neither the raw 30 source tiles nor a byte-exact prior warp reconstruction are claimed.",
+    "The input is a previously resampled and Int16-quantised DSM, not a native 100 m terrain DTM.",
+    "Input, output, and source raster tile bytes are absent from this repository fixture.",
+    "The archived Horn replay was verified on Linux/GDAL 3.10.3 only. Windows execution was not verified.",
+    "The prior README is retained verbatim as provenance; its download timestamps were not independently re-verified in this slope task.",
+    "Source archive: Chongqing_Slope_Reproducibility_20261007.zip; SHA-256: 89484118261cfca9200237a1f18019ba00c256121110122f555d7a8b4018d64b",
+    "https://registry.opendata.aws/copernicus-dem/",
+    "https://copernicus-dem-90m.s3.amazonaws.com/readme.html",
+    "https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM",
+    "https://www.openstreetmap.org/relation/913069"
+  ],
+  "runs": [
+    {
+      "id": "20261007T093734Z_horn_2787d459",
+      "label": "Horn · 100 m",
+      "status": "succeeded",
+      "startedAt": "2026-10-07T09:37:34.774836Z",
+      "finishedAt": "2026-10-07T09:37:41.567851Z",
+      "inputs": [
+        {
+          "name": "chongqing_dem_100m.tif",
+          "sha256": "289b8e5d59786bb96795f2b6caf89da983cd5f75d9bc13027db2392791934b23",
+          "sizeBytes": 12510277
+        }
+      ],
+      "code": {
+        "name": "code/run_slope.py",
+        "sha256": "0f1b37a66fc74dd9172deb709d6a96be8f652a8b74bcfd0c0581f375d662fe56",
+        "sizeBytes": 8817
+      },
+      "parameters": {
+        "algorithm": "Horn",
+        "operation": "gdaldem slope",
+        "slope_units": "degrees",
+        "elevation_units": "metres",
+        "scale": 1.0,
+        "compute_edges": false,
+        "nodata_policy": "Entire 3x3 neighbourhood must be valid; no zero fill or interpolation.",
+        "input_width_pixels": 4723,
+        "input_height_pixels": 4479,
+        "pixel_width_m": 100.0,
+        "pixel_height_m": 100.0,
+        "input_dtype": "Int16",
+        "input_nodata_m": -32768.0,
+        "input_band_unit_embedded": null,
+        "horizontal_unit": "metre",
+        "crs_proj4": "+proj=tmerc +lat_0=0 +lon_0=108 +k=1 +x_0=500000 +y_0=0 +datum=WGS84 +units=m +no_defs",
+        "output_dtype": "Float32",
+        "output_nodata": -9999.0
+      },
+      "environment": {
+        "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]",
+        "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+        "gdal": "GDAL 3.10.3, released 2025/04/01",
+        "gdal_version_number": "3100300",
+        "proj": "9.6.0",
+        "numpy": "2.2.4",
+        "GDAL_NUM_THREADS": "1",
+        "GDAL_PAM_ENABLED": "NO"
+      },
+      "command": [
+        "gdaldem",
+        "slope",
+        "{input}",
+        "{output}",
+        "-of",
+        "GTiff",
+        "-b",
+        "1",
+        "-s",
+        "1",
+        "-alg",
+        "Horn",
+        "-co",
+        "COMPRESS=DEFLATE",
+        "-co",
+        "PREDICTOR=3",
+        "-co",
+        "ZLEVEL=9",
+        "-co",
+        "TILED=YES",
+        "-co",
+        "BLOCKXSIZE=256",
+        "-co",
+        "BLOCKYSIZE=256",
+        "-co",
+        "NUM_THREADS=1"
+      ],
+      "logs": {
+        "stdout": "0...10...20...30...40...50...60...70...80...90...100 - done.\n",
+        "stderr": "",
+        "exitCode": 0
+      },
+      "results": {
+        "valid_pixel_count": 8196757,
+        "nodata_pixel_count": 12957560,
+        "slope_min_degrees": 0.0,
+        "slope_max_degrees": 66.6491928100586,
+        "slope_mean_degrees": 14.389192582967581,
+        "slope_stddev_population_degrees": 10.204434118027107,
+        "slope_p50_degrees": 12.819640159606934,
+        "slope_p95_degrees": 33.567989349365234,
+        "percentile_method": "numpy.percentile default linear",
+        "valid_mask_matches_strict_3x3": true,
+        "input_unchanged": true,
+        "same_grid_and_crs": true,
+        "slope_range_0_to_90": true,
+        "removed_boundary_neighbour_pixels": 43169
+      },
+      "outputs": [
+        {
+          "name": "slope_degrees.tif",
+          "sha256": "dddc3ec314f522c0cacef18ce287484189de3a5b179ad58b39f278b479e98b60",
+          "sizeBytes": 26890011
+        }
+      ],
+      "notes": [
+        "Copernicus DEM GLO-90 DSM, prior bilinear 100 m resampling and Int16 metre quantisation",
+        "Source: runs/20261007T093734Z_horn_2787d459/metadata.json; stdout.txt and stderr.txt are copied verbatim.",
+        "The code hash identifies this run's saved code/run_slope.py snapshot.",
+        "Command uses the saved {input}/{output} template; it is inert text in Cumora.",
+        "Raster bytes and executable code are not included in this import.",
+        "Vertical datum: EGM2008 (EPSG:3855), inherited from Copernicus provenance; not embedded in this 2D raster CRS",
+        "The input band has no embedded unit; metres are inherited from preserved source documentation.",
+        "Recorded replay 20261007T094003Z_horn_replay_0074404a reused the saved command template.",
+        "Recorded replay: TIFF SHA-256 equal = true; pixel arrays including nodata identical = true; masks identical = true; environment versions equal = true; maximum absolute pixel difference (degrees) = 0.0.",
+        "Replay output SHA-256: dddc3ec314f522c0cacef18ce287484189de3a5b179ad58b39f278b479e98b60",
+        "Verified in this Linux/GDAL 3.10.3 environment. Windows and other versions were not executed; TIFF byte encodings can differ, so compare pixels and georeferencing too.",
+        "Source: comparison_final/reproduction_verification.json. This import does not execute a replay."
+      ]
+    },
+    {
+      "id": "20261007T093742Z_zt_64ecf72b",
+      "label": "Zevenbergen–Thorne · 100 m",
+      "status": "succeeded",
+      "startedAt": "2026-10-07T09:37:42.164059Z",
+      "finishedAt": "2026-10-07T09:37:48.610342Z",
+      "inputs": [
+        {
+          "name": "chongqing_dem_100m.tif",
+          "sha256": "289b8e5d59786bb96795f2b6caf89da983cd5f75d9bc13027db2392791934b23",
+          "sizeBytes": 12510277
+        }
+      ],
+      "code": {
+        "name": "code/run_slope.py",
+        "sha256": "0f1b37a66fc74dd9172deb709d6a96be8f652a8b74bcfd0c0581f375d662fe56",
+        "sizeBytes": 8817
+      },
+      "parameters": {
+        "algorithm": "ZevenbergenThorne",
+        "operation": "gdaldem slope",
+        "slope_units": "degrees",
+        "elevation_units": "metres",
+        "scale": 1.0,
+        "compute_edges": false,
+        "nodata_policy": "Entire 3x3 neighbourhood must be valid; no zero fill or interpolation.",
+        "input_width_pixels": 4723,
+        "input_height_pixels": 4479,
+        "pixel_width_m": 100.0,
+        "pixel_height_m": 100.0,
+        "input_dtype": "Int16",
+        "input_nodata_m": -32768.0,
+        "input_band_unit_embedded": null,
+        "horizontal_unit": "metre",
+        "crs_proj4": "+proj=tmerc +lat_0=0 +lon_0=108 +k=1 +x_0=500000 +y_0=0 +datum=WGS84 +units=m +no_defs",
+        "output_dtype": "Float32",
+        "output_nodata": -9999.0
+      },
+      "environment": {
+        "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]",
+        "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+        "gdal": "GDAL 3.10.3, released 2025/04/01",
+        "gdal_version_number": "3100300",
+        "proj": "9.6.0",
+        "numpy": "2.2.4",
+        "GDAL_NUM_THREADS": "1",
+        "GDAL_PAM_ENABLED": "NO"
+      },
+      "command": [
+        "gdaldem",
+        "slope",
+        "{input}",
+        "{output}",
+        "-of",
+        "GTiff",
+        "-b",
+        "1",
+        "-s",
+        "1",
+        "-alg",
+        "ZevenbergenThorne",
+        "-co",
+        "COMPRESS=DEFLATE",
+        "-co",
+        "PREDICTOR=3",
+        "-co",
+        "ZLEVEL=9",
+        "-co",
+        "TILED=YES",
+        "-co",
+        "BLOCKXSIZE=256",
+        "-co",
+        "BLOCKYSIZE=256",
+        "-co",
+        "NUM_THREADS=1"
+      ],
+      "logs": {
+        "stdout": "0...10...20...30...40...50...60...70...80...90...100 - done.\n",
+        "stderr": "",
+        "exitCode": 0
+      },
+      "results": {
+        "valid_pixel_count": 8196757,
+        "nodata_pixel_count": 12957560,
+        "slope_min_degrees": 0.0,
+        "slope_max_degrees": 67.89344024658203,
+        "slope_mean_degrees": 14.98141344910376,
+        "slope_stddev_population_degrees": 10.420573142857586,
+        "slope_p50_degrees": 13.464653968811035,
+        "slope_p95_degrees": 34.42252731323242,
+        "percentile_method": "numpy.percentile default linear",
+        "valid_mask_matches_strict_3x3": true,
+        "input_unchanged": true,
+        "same_grid_and_crs": true,
+        "slope_range_0_to_90": true,
+        "removed_boundary_neighbour_pixels": 43169
+      },
+      "outputs": [
+        {
+          "name": "slope_degrees.tif",
+          "sha256": "b325af6b5564ed9acd1c719361468ee01ee22e777c1ee81cd14a174ced2423f2",
+          "sizeBytes": 26933913
+        }
+      ],
+      "notes": [
+        "Copernicus DEM GLO-90 DSM, prior bilinear 100 m resampling and Int16 metre quantisation",
+        "Source: runs/20261007T093742Z_zt_64ecf72b/metadata.json; stdout.txt and stderr.txt are copied verbatim.",
+        "The code hash identifies this run's saved code/run_slope.py snapshot.",
+        "Command uses the saved {input}/{output} template; it is inert text in Cumora.",
+        "Raster bytes and executable code are not included in this import.",
+        "Vertical datum: EGM2008 (EPSG:3855), inherited from Copernicus provenance; not embedded in this 2D raster CRS",
+        "The input band has no embedded unit; metres are inherited from preserved source documentation.",
+        "No separate Zevenbergen–Thorne replay is claimed by this example."
+      ]
+    }
+  ],
+  "comparisons": [
+    {
+      "leftRunId": "20261007T093734Z_horn_2787d459",
+      "rightRunId": "20261007T093742Z_zt_64ecf72b",
+      "label": "Horn vs Zevenbergen–Thorne · common valid pixels",
+      "metrics": {
+        "common_valid_pixels": 8196757,
+        "common_grid_area_km2": 81967.57,
+        "same_valid_mask": true,
+        "rmse_degrees": 1.42336520599818,
+        "proportion_absolute_difference_gt_1_degree": 0.3920111331835261,
+        "proportion_absolute_difference_gt_5_degrees": 0.004804217082438823,
+        "absolute_difference_min_degrees": 0.0,
+        "absolute_difference_max_degrees": 12.402679443359375,
+        "absolute_difference_mean_degrees": 1.0366253723873664,
+        "absolute_difference_stddev_population_degrees": 0.9753852300342643,
+        "absolute_difference_p50_degrees": 0.7484283447265625,
+        "absolute_difference_p95_degrees": 3.005260848999022,
+        "signed_difference_zt_minus_horn_min_degrees": -8.870853424072266,
+        "signed_difference_zt_minus_horn_max_degrees": 12.402679443359375,
+        "signed_difference_zt_minus_horn_mean_degrees": 0.5922208661361691,
+        "signed_difference_zt_minus_horn_stddev_population_degrees": 1.294311768995077,
+        "signed_difference_zt_minus_horn_p50_degrees": 0.43585824966430664,
+        "signed_difference_zt_minus_horn_p95_degrees": 2.9291889190673785
+      },
+      "notes": [
+        "Same input, grid, units and valid mask; differences reflect gradient algorithms. This is not validation against measured terrain truth.",
+        "Signed differences are Zevenbergen–Thorne minus Horn; proportions are fractions from 0 to 1.",
+        "Percentile method: numpy.percentile default linear",
+        "Source: comparison_final/comparison.json, generated 2026-10-07T09:42:20.844846Z",
+        "Comparison code SHA-256: ba371c69fa11b0001939b6808ff8d7624c422bd0e179678b5bb3edd44befc813",
+        "Recorded metrics are imported without rerunning raster processing or validating against surveyed terrain."
+      ]
+    }
+  ]
+}

@@ -23,6 +23,8 @@ import { MeView } from './MeView'
 import { EmailComposer } from '@/components/EmailComposer'
 import { useT } from '@/lib/i18n'
 
+const ExperimentWorkspace = lazy(() => import('@/components/ExperimentWorkspace').then((module) => ({ default: module.ExperimentWorkspace })))
+
 const ShippingView = lazy(() => import('./ShippingView').then((module) => ({ default: module.ShippingView })))
 
 function ConversationsLayout() {
@@ -104,6 +106,7 @@ export function DesktopApp() {
         {view === 'whispers' && <WhispersView />}
         {view === 'convene' && <ConveneView />}
         {view === 'agents' && <AgentsView />}
+        {view === 'experiments' && <Suspense fallback={<div className="h-full grid place-items-center">{t('common.loading')}</div>}><ExperimentWorkspace /></Suspense>}
         {view === 'boards' && <BoardsView />}
         {view === 'calendar' && <CalendarView />}
         {view === 'documents' && <DocumentsView />}

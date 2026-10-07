@@ -19,6 +19,8 @@ import { MobileParticipantInfo } from './MobileParticipantInfo'
 import { useSwipeBackProps } from './useSwipeBack'
 import { ViewBoundary } from './ViewBoundary'
 
+const ExperimentWorkspace = lazy(() => import('@/components/ExperimentWorkspace').then((module) => ({ default: module.ExperimentWorkspace })))
+
 const ShippingWorkspace = lazy(() => import('@/components/ShippingWorkspace').then((module) => ({ default: module.ShippingWorkspace })))
 
 /** iOS UINavigationController push/pop spring. CRITICALLY DAMPED:
@@ -287,6 +289,8 @@ export function MobileApp() {
               <ViewBoundary name="Library"><MobileLibrary /></ViewBoundary>
             </motion.div>
           )}
+
+          {view === 'experiments' && <motion.div key="experiments" className="absolute inset-0" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={fadeTransition}><ViewBoundary name="Experiments"><Suspense fallback={<div>{t('common.loading')}</div>}><ExperimentWorkspace /></Suspense></ViewBoundary></motion.div>}
 
           {/* SHIP view — end-to-end contract, verification, release, and learning loop */}
           {view === 'shipping' && (

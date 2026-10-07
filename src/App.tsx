@@ -184,7 +184,7 @@ function AuthedApp() {
 
   return (
     <>
-      {(needsOnboarding || forceOnboarding) ? <Onboarding /> : (isMobile ? <MobileApp /> : <DesktopApp />)}
+      {((needsOnboarding || forceOnboarding) && view !== 'experiments') ? <Onboarding /> : (isMobile ? <MobileApp /> : <DesktopApp />)}
       {/* In-app message toasts (window-blur / different-convo only) —
           rendered at the AuthedApp level so they share auth context and
           unmount cleanly on sign-out. */}
