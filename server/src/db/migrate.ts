@@ -7,6 +7,7 @@
  */
 import { AGENT_PROVIDER_PROFILE_SQL, agentProviderProfileChecksum } from './migrations/0008-agent-provider-profile.js'
 import { createHash } from 'node:crypto'
+import { EXPERIMENT_BUNDLES_SQL, experimentBundlesChecksum } from './migrations/0011-experiment-bundles.js'
 import { pool } from './pool.js'
 import {
   type AppliedMigration,
@@ -2635,6 +2636,12 @@ const VERSIONED_MIGRATIONS: readonly VersionedMigration[] = [
       await ensureConcurrentIndex(client, BOARD_CARD_DUE_ON_INDEX_NAME, BOARD_CARD_DUE_ON_INDEX_SQL)
     },
   },
+  {
+    ...SCHEMA_MIGRATIONS[10],
+    sourceChecksum: experimentBundlesChecksum(),
+    transactional: true,
+    up: async (client) => { await client.query(EXPERIMENT_BUNDLES_SQL) },
+  },
 ]
 
 /** How many times a transactional migration may lose a lock race before the
@@ -3009,6 +3016,8 @@ export const REQUIRED_SCHEMA_INDEXES = [
   SEARCH_TRIGRAM_INDEX_NAME,
   EMAIL_MESSAGES_COMPANY_SMTP_ID_INDEX_NAME,
   BOARD_CARD_DUE_ON_INDEX_NAME,
+  'experiment_bundles_company_digest_key',
+  'idx_experiment_bundles_company_imported',
 ] as const
 
 /** Promotion gate: every required index must exist and be valid, ready, and

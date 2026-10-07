@@ -77,6 +77,7 @@ export function MobileLibrary() {
             documents, boards & schedule
           </div>
         </div>
+        <button type="button" onClick={() => useApp.getState().setView('experiments')} className="mx-4 mb-3 rounded-lg border border-ink-100 bg-cloud px-3 py-2 text-left text-[12px] font-semibold text-skype-deep">{tLabel('nav.experiments', 'Experiments')} →</button>
         <div className="px-3 pb-3 flex gap-1.5">
           {TABS.map(({ key, label, Icon }) => {
             const active = tab === key

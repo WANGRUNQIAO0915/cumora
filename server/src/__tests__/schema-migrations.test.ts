@@ -22,6 +22,7 @@ const { engineDefaultsChecksum } = await import('../db/migrations/0007-engine-de
 const { agentProviderProfileChecksum } = await import('../db/migrations/0008-agent-provider-profile.js')
 const { agentRoutingClaimsChecksum } = await import('../db/migrations/0009-agent-routing-claims.js')
 const { boardCardDueOnChecksum } = await import('../db/migrations/0010-board-card-due-on.js')
+const { experimentBundlesChecksum } = await import('../db/migrations/0011-experiment-bundles.js')
 const { verifySchemaCompatibility } = await import('../db/schema-version.js')
 type SchemaVersionQueryable = import('../db/schema-version.js').SchemaVersionQueryable
 
@@ -65,6 +66,10 @@ test('the agent routing claims migration matches its immutable manifest checksum
 
 test('the board card due date migration matches its immutable manifest checksum', () => {
   assert.equal(boardCardDueOnChecksum(), SCHEMA_MIGRATIONS[9].checksum)
+})
+
+test('the experiment bundle migration matches its immutable manifest checksum', () => {
+  assert.equal(experimentBundlesChecksum(), SCHEMA_MIGRATIONS[10].checksum)
 })
 
 test('the migration owner accepts an exact prefix and reports its pending suffix', () => {

@@ -4,6 +4,7 @@ import { useComputers } from '@/stores/computers'
 import { TitleBar } from '@/desktop/TitleBar'
 import { useT } from '@/lib/i18n'
 import { RUNNABLE_ENGINES, engineLabel, type RunnableEngineId } from '@/lib/engines'
+import { useApp } from '@/stores/app'
 import { useAuth } from '@/stores/auth'
 import { usePairingCodes } from '@/stores/pairing-codes'
 import { copyText } from '@/lib/clipboard'
@@ -103,6 +104,10 @@ export function Onboarding() {
               {t('onboard.title')}
             </h1>
           </div>
+          <button type="button" onClick={() => useApp.getState().setView('experiments')}
+            className="mb-5 rounded-lg border border-ink-100 bg-cloud px-4 py-3 text-[13px] font-semibold text-skype-deep">
+            {t('experiment.openWithoutComputer')}
+          </button>
           {/* biome-ignore lint/security/noDangerouslySetInnerHtml: static copy from the locale bundle, not user input */}
           <p className="text-[14.5px] text-ink-600 leading-relaxed mb-6 max-w-[560px]" dangerouslySetInnerHTML={{ __html: t('onboard.body') }} />
 

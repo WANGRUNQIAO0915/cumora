@@ -6,7 +6,7 @@ import { useComputers } from '@/stores/computers'
 import { useDevtools } from '@/stores/devtools'
 import { useParticipants } from '@/stores/participants'
 import { Avatar } from '@/components/Avatar'
-import { IChat, IWhisper, IAgent, IAgents, IBoard, IDoc, ICalendar, IObserve, IExit, IShip } from '@/components/icons'
+import { IChat, IWhisper, IAgent, IAgents, IBoard, IDoc, ICalendar, IObserve, IExit, IShip, IExperiment } from '@/components/icons'
 import { api } from '@/api/client'
 import { cn } from '@/lib/utils'
 import { useT, type MessageKey } from '@/lib/i18n'
@@ -18,6 +18,7 @@ import type { Participant, ViewKey } from '@/types'
 const baseItems: Array<{ key: ViewKey['view']; Icon: typeof IChat; label: MessageKey }> = [
   { key: 'conversations', Icon: IChat, label: 'nav.conversations' },
   { key: 'whispers', Icon: IWhisper, label: 'nav.whispers' },
+  { key: 'experiments', Icon: IExperiment, label: 'nav.experiments' },
   { key: 'shipping', Icon: IShip, label: 'nav.ship' },
   { key: 'boards', Icon: IBoard, label: 'nav.boards' },
   { key: 'calendar', Icon: ICalendar, label: 'nav.calendar' },

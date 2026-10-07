@@ -45,7 +45,7 @@ export function MobileTabBar() {
       style={{ paddingBottom: 'max(env(safe-area-inset-bottom), 8px)', gridTemplateColumns: `repeat(${visibleTabs.length}, minmax(0, 1fr))` }}
     >
       {visibleTabs.map(({ key, Icon, label }) => {
-        const active = view === key
+        const active = view === key || (view === 'experiments' && key === 'library')
         const badge = key === 'conversations' && totalUnread > 0 ? totalUnread : undefined
         return (
           <Pressable
